@@ -11,7 +11,7 @@ class RedisCache implements Cache
      */
     private $redis;
 
-    public function __construct(Redis $redis)
+    public function __construct($redis)
     {
         $this->redis = $redis;
     }
@@ -23,9 +23,11 @@ class RedisCache implements Cache
         foreach ($keyValues as $key => $value) {
             if (!is_null($value)) {
                 $value = json_encode($value);
-                $pipe->set($key, $value, 'EX', 86400, 'NX');
+                $pipe->set($key, $value, 'EX', 86400);
             }
         }
+
+        $pipe->execute();
     }
 
     public function get($keys)

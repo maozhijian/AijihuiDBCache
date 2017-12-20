@@ -19,7 +19,7 @@ class RedisMeta implements Meta
      */
     private $redis;
 
-    public function __construct(Client $redis)
+    public function __construct( $redis)
     {
         $this->redis = $redis;
     }

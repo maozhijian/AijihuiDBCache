@@ -7,6 +7,7 @@ use AjhDBCache\Contracts\Cache\Cache;
 use AjhDBCache\Contracts\Cache\Meta;
 use AjhDBCache\Impl\Cache\RedisCache;
 use AjhDBCache\Impl\Cache\RedisMeta;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
 class CacheServiceProvider extends ServiceProvider
@@ -31,6 +32,6 @@ class CacheServiceProvider extends ServiceProvider
     public function getPredis()
     {
         $redis = $this->app->make('redis');
-        return $redis->connection('db_cache') ?: $redis->connection();
+        return $redis->connection();
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Query\Expression;
+use Illuminate\Support\Collection;
 
 class QueryBuilder extends Builder
 {
@@ -53,8 +54,7 @@ class QueryBuilder extends Builder
             $this->fireEvent('get');
         }
 
-        if (!$this->needCache())
-        {
+        if (!$this->needCache()) {
             return parent::get($columns);
         }
 
@@ -228,7 +228,7 @@ class QueryBuilder extends Builder
         $missedIds = array_keys($cacheKeys);
         if (!$missedIds) {
             $this->fireEvent('hit.simple.1000');
-            return $cachedRows;
+            return new Collection($cachedRows);
         }
 
         if (count($cachedRows) === 0) {
@@ -270,7 +270,7 @@ class QueryBuilder extends Builder
             return $row !== [];
         });
 
-        return array_merge($cachedRows, $missedRows);
+        return new Collection(array_merge($cachedRows, $missedRows));
     }
 
     private function getAwful()
@@ -280,7 +280,7 @@ class QueryBuilder extends Builder
         $result = $cache->get([$key]);
         if (array_key_exists($key, $result)) {
             $this->fireEvent('hit.awful');
-            return $result[$key];
+            return new Collection($result[$key]);
         }
 
         $this->fireEvent('miss.awful');
@@ -290,7 +290,7 @@ class QueryBuilder extends Builder
             $key => $result,
         ]);
 
-        return $result;
+        return new Collection($result);
     }
 
     private function buildAwfulCacheKey()
@@ -385,7 +385,7 @@ class QueryBuilder extends Builder
             $meta = $this->getMeta();
             $meta->flush($this->db(), $this->model->table());
 
-            if (! is_array(reset($values))) {
+            if (!is_array(reset($values))) {
                 $values = [$values];
             }
             $toClearIds = [];
