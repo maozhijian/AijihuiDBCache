@@ -16,7 +16,7 @@
   },
 
   "require": {
-    "illuminate/database": "*",
-    "illuminate/redis": "*"
+    "illuminate/database": "5.4.*",
+    "illuminate/redis": "5.4.*"
   }
 }
