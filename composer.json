@@ -1,0 +1,25 @@
+{
+  "name": "maozhijian/AijihuiDBCache",
+  "description": "Eloquent Cache Layer",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "毛知见",
+      "email": "chiefmaster@yeah.net"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "AjhDBCache":"src/"
+    }
+  },
+
+  "require": {
+    "illuminate/database": "^5.4",
+    "illuminate/redis": "^5.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.0",
+    "mockery/mockery": "^0.9.4"
+  }
+}

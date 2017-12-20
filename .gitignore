@@ -1,0 +1,4 @@
+.phpcd
+.idea
+vendor
+composer.lock
