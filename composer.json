@@ -8,6 +8,7 @@
       "email": "chiefmaster@yeah.net"
     }
   ],
+
   "autoload": {
     "psr-4": {
       "AjhDBCache":"src/"
