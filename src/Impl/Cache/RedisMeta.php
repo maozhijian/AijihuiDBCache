@@ -3,9 +3,10 @@
 namespace AjhDBCache\Impl\Cache;
 
 
+use AjhDBCache\Contracts\Cache\Meta;
 use Predis\Client;
 
-class RedisMeta
+class RedisMeta implements Meta
 {
     private $prefix = 'ajh_db_cache';
 
@@ -79,4 +80,19 @@ class RedisMeta
 
         $this->redis->incr($key);
     }
+
+    public function flush($db, $table)
+    {
+        $key = implode(':', [
+            $this->prefix,
+            self::KEY_UPDATE_VERSION,
+            $db,
+            $table,
+        ]);
+
+        $key = md5($key);
+
+        $this->redis->incr($key);
+    }
+
 }
